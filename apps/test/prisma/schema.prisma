@@ -17,3 +17,12 @@ model User {
   updatedAt DateTime @updatedAt
   username  String   @unique
 }
+
+model Test {
+  createdAt DateTime @default(now())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  test      Test?    @relation(name: "TestOnTests", fields: [testId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  testId    String?  @unique @db.ObjectId
+  tests     Test[]   @relation(name: "TestOnTests")
+  updatedAt DateTime @updatedAt
+}
